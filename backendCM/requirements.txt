@@ -1,0 +1,5 @@
+fastapi
+uvicorn
+pandas
+openpyxl
+pymongo  # or other DB libraries
