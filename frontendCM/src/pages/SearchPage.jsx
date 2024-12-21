@@ -4,9 +4,8 @@ import {
   CircularProgress,
   Typography,
   Backdrop,
-  Grid2
+  Grid2,
 } from "@mui/material";
-
 
 import PageSize from "../components/PageSize";
 import FilterForm from "../components/FilterForm";
@@ -38,6 +37,21 @@ const SearchPage = () => {
   });
 
   const apiEndpoint = "https://cmworks.onrender.com/data/filter/";
+  const uniqueValuesEndpoint = "https://cmworks.onrender.com/data/unique-values/";
+
+  const fetchUniqueValues = async () => {
+    try {
+      const response = await fetch(uniqueValuesEndpoint);
+      if (!response.ok) {
+        const errorDetails = await response.json();
+        throw new Error(errorDetails.detail || "Failed to fetch unique values");
+      }
+      const result = await response.json();
+      setUniqueFilters(result || {});
+    } catch (err) {
+      setError(err.message);
+    }
+  };
 
   const fetchData = async () => {
     setLoading(true);
@@ -47,13 +61,13 @@ const SearchPage = () => {
         page: currentPage,
         page_size: pageSize,
         ...(query && { contains: query }),
-        ...(filters.flowName && { column: "flowName", value: filters.flowName }),
-        ...(filters.processName && {
-          column: "processName",
-          value: filters.processName,
-        }),
-        ...(filters.country && { column: "country", value: filters.country }),
-        ...(filters.CAS && { column: "CAS", value: filters.CAS }),
+        ...Object.keys(filters).reduce((acc, key) => {
+          if (filters[key]) {
+            acc["column"] = key;
+            acc["value"] = filters[key];
+          }
+          return acc;
+        }, {}),
       });
 
       const response = await fetch(`${apiEndpoint}?${params.toString()}`);
@@ -65,7 +79,6 @@ const SearchPage = () => {
       const result = await response.json();
       setData(result.data || []);
       setTotalPages(result.total_pages || 1);
-      extractUniqueFilters(result.data || []);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -73,22 +86,12 @@ const SearchPage = () => {
     }
   };
 
-  const extractUniqueFilters = (data) => {
-    const flowNames = [...new Set(data.map((item) => item.flowName || ""))];
-    const processNames = [...new Set(data.map((item) => item.processName || ""))];
-    const countries = [...new Set(data.map((item) => item.country || ""))];
-    const CASNumbers = [...new Set(data.map((item) => item.CAS || ""))];
-
-    setUniqueFilters({
-      flowName: flowNames,
-      processName: processNames,
-      country: countries,
-      CAS: CASNumbers,
-    });
-  };
+  useEffect(() => {
+    fetchUniqueValues(); // Fetch unique values on component load
+  }, []);
 
   useEffect(() => {
-    fetchData();
+    fetchData(); // Fetch data whenever dependencies change
   }, [currentPage, pageSize, filters, query]);
 
   const handleClearFilters = () => {
@@ -155,7 +158,6 @@ const SearchPage = () => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "flex-start",
-                 // Centers the content
                 minWidth: 330,
               }}
             >

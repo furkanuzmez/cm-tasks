@@ -42,6 +42,43 @@ def get_all_data(
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error retrieving data: {str(e)}")
 
+
+@router.get("/data/unique-values/", summary="Get Unique Values for Specified Columns", tags=["Data"])
+def get_unique_values():
+    try:
+        # Specify the columns you want to fetch unique values for
+        columns = ["flowName", "processName", "country", "CAS"]
+
+        # Use MongoDB aggregation to get unique values
+        pipeline = [
+            {"$project": {column: 1 for column in columns}},  # Include only specified columns
+            {"$group": {
+                "_id": None,  # Group everything together
+                **{column: {"$addToSet": f"${column}"} for column in columns},
+            }},
+            {"$project": {  # Restructure the response to exclude _id
+                "_id": 0,
+                **{column: 1 for column in columns},
+            }},
+        ]
+
+        result = list(collection.aggregate(pipeline))
+        if not result:
+            return {column: [] for column in columns}  # Return empty lists if no data
+        return result[0]  # Return the first and only document
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error retrieving unique values: {str(e)}")
+
+
+
+
+
+
+
+
+
+
+
 # Endpoint to filter, sort, and paginate data
 @router.get("/data/filter/", summary="Filter, Sort, and Paginate Data", tags=["Data"])
 def filter_data(
