@@ -154,8 +154,9 @@ const SearchPage = () => {
                 minHeight: 400,
                 display: "flex",
                 flexDirection: "column",
-                justifyContent: "center",
-                minWidth: 400,
+                justifyContent: "flex-start",
+                 // Centers the content
+                minWidth: 330,
               }}
             >
               <PageSize pageSize={pageSize} setPageSize={setPageSize} />

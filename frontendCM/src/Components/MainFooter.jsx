@@ -19,7 +19,7 @@ const Footer = () => {
             }}
         >
             <Typography variant="body2">
-                &copy; {new Date().getFullYear()} Carbon-Minds. All rights reserved.
+                &copy; v0.01 Carbon-Minds..
             </Typography>
         </Box>
     );

@@ -27,7 +27,7 @@ const DataCardList = ({ data, currentPage, totalPages, setCurrentPage }) => {
         </Grid2>
       ) : (
         <Grid2 item xs={12} sx={{ minWidth: 800 }}>
-          <Typography align="center" color="text.secondary">
+          <Typography align="left" color="text.secondary">
             No data available.
           </Typography>
         </Grid2>
