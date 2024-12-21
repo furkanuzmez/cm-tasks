@@ -1,6 +1,13 @@
+import React from "react";
 import { useState, useEffect } from "react";
+import {
+  Container,
+  CircularProgress,
+  Typography,
+  Backdrop,
+  Grid2
+} from "@mui/material";
 
-import { Container, CircularProgress, Typography, Grid2 } from "@mui/material";
 
 import PageSize from "../components/PageSize";
 import FilterForm from "../components/FilterForm";
@@ -37,13 +44,15 @@ const SearchPage = () => {
     setLoading(true);
     setError(null);
     try {
-      // Construct query parameters
       const params = new URLSearchParams({
         page: currentPage,
         page_size: pageSize,
         ...(query && { contains: query }),
         ...(filters.flowName && { column: "flowName", value: filters.flowName }),
-        ...(filters.processName && { column: "processName", value: filters.processName }),
+        ...(filters.processName && {
+          column: "processName",
+          value: filters.processName,
+        }),
         ...(filters.country && { column: "country", value: filters.country }),
         ...(filters.CAS && { column: "CAS", value: filters.CAS }),
       });
@@ -103,6 +112,16 @@ const SearchPage = () => {
       maxWidth="xl"
       sx={{ p: 2, bgcolor: "background.default", color: "text.primary" }}
     >
+      <Backdrop
+        open={loading}
+        sx={{
+          color: "#fff",
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+
       <Grid2 container spacing={1}>
         <Grid2 size={{ xs: 12, md: 12 }}>
           <Header />
@@ -114,13 +133,7 @@ const SearchPage = () => {
           onSearch={handleSearch}
         />
 
-        {loading ? (
-          <Grid2 size={{ xs: 12, md: 12, sm: 12 }} alignItems="center">
-            <CircularProgress
-              sx={{ display: "flex", mx: "auto", alignItems: "center", mt: 12 }}
-            />
-          </Grid2>
-        ) : error ? (
+        {error ? (
           <Typography color="error" align="center">
             Error: {error}
           </Typography>
@@ -143,18 +156,16 @@ const SearchPage = () => {
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
-                minWidth:400,
+                minWidth: 400,
               }}
             >
-              
-                <PageSize pageSize={pageSize} setPageSize={setPageSize} />
-                <DataCardList
-                  data={data}
-                  totalPages={totalPages}
-                  currentPage={currentPage}
-                  setCurrentPage={setCurrentPage}
-                />
-              
+              <PageSize pageSize={pageSize} setPageSize={setPageSize} />
+              <DataCardList
+                data={data}
+                totalPages={totalPages}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
             </Grid2>
 
             <RequestList />
