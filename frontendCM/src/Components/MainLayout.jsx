@@ -34,7 +34,6 @@ const Main = ({ children }) => {
         display: "flex",
         flexDirection: "column",
         height: `calc(100vh - ${headerHeight + footerHeight}px)`,
-        border:'2px solid red',
         overflow: "auto", // Allow content to scroll if necessary
       }}
     >
