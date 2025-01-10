@@ -18,7 +18,7 @@ const FiltersForm = ({
 }) => {
   return (
     <>
-      <Grid2 item  fullWidth  size={{xs:12,md:3,sm:12}} sx={{ bgcolor: "background.paper", borderRadius: 1, boxShadow: 1,maxWidth:"-webkit-fill-available",minWidth:'330px',width:'100%' }}>
+      <Grid2 item  fullWidth  size={{xs:12,md:3,sm:12}} sx={{ bgcolor: "background.paper", borderRadius: 1, boxShadow: 1,maxWidth:"-webkit-fill-available",minWidth:'200px',width:'100%' }}>
         <Typography
           variant="h6"
           sx={{

@@ -4,7 +4,6 @@ import { ThemeProvider, CssBaseline} from "@mui/material";
 import { lightTheme, darkTheme } from "../src/theme/theme";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import SearchPage from './pages/SearchPage';
-import Home from './pages/Home';
 import Header from './components/MainHeader';
 import Footer from './components/MainFooter';
 import Main from './components/MainLayout'
