@@ -1,12 +1,13 @@
 {
   "name": "frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+     "postbuild": "xcopy /E /I /Y dist ..\\backendCM\\dist",
     "preview": "vite preview"
   },
   "dependencies": {
