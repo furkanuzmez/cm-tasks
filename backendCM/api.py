@@ -147,5 +147,12 @@ def update_column(
 @router.post("/data/add/", summary="Add a New Row", tags=["Data"])
 def add_row(new_row: Dict[str, Union[str, int, float]]):
     try:
-        collection.insert_one(new_row)  # Insert the new document into the collection
-        retur
+        # Insert the new document into the collection
+        result = collection.insert_one(new_row)
+        
+        # Return a success message along with the inserted ID
+        return {"message": "Row added successfully.", "id": str(result.inserted_id)}
+    except Exception as e:
+        # Catch any exception that occurs and return an appropriate HTTP error
+        raise HTTPException(status_code=500, detail=f"Error adding row: {str(e)}")
+
