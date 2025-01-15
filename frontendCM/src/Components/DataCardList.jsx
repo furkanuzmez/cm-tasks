@@ -41,7 +41,16 @@ const DataCardList = ({ data, currentPage, totalPages, setCurrentPage }) => {
         <Grid2
           item
           size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
-          sx={{ display: "flex", justifyContent: "center", mt: 2, minWidth: "600px", width:'100%' }}
+          sx={{ display: "flex",  mt: 2,  minWidth: {
+            xs: "200px", // Smaller minWidth for mobile
+            sm: "200px", // Slightly larger minWidth for tablets
+            md: "600px", // Default value for desktops
+          }, width:'100%',
+          justifyContent: {
+            xs: "left", // Smaller minWidth for mobile
+            sm: "left", // Slightly larger minWidth for tablets
+            md: "center", // Default value for desktops
+          }, }}
         >
           <Pagination
             count={totalPages}

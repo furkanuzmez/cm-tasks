@@ -13,9 +13,11 @@ const baseTheme = {
     },
     body1: {
       fontSize: "1rem",
+      fontWeight: 600,
     },
     body2: {
       fontSize: "0.875rem",
+      fontWeight: 500,
     },
   },
 };

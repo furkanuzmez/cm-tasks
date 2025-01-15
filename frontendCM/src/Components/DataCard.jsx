@@ -8,6 +8,7 @@ import {
   Divider,
 } from "@mui/material";
 import InfoIcon from "@mui/icons-material/Info";
+import ProcessIcon from "@mui/icons-material/AccountTree";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import DescriptionIcon from "@mui/icons-material/Description";
@@ -61,7 +62,7 @@ const DataCard = ({ item }) => {
               color="text.secondary"
               sx={{ mb: 1 }}
             >
-              <DescriptionIcon sx={{ verticalAlign: "middle", mr: 1 }} />
+              <ProcessIcon sx={{ verticalAlign: "middle", mr: 1 }} />
               <strong>Process Name:</strong> {item.processName || "N/A"}
             </Typography>
             <Typography
