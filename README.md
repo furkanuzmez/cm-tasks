@@ -1,18 +1,25 @@
-# CM Task Frontend and Backend Solution
 
-Minimal Setup for App 
+# My Project
 
-Requirements
+Welcome to **My Project**! This is an example of a README file.
 
-React, Node , Python 3 and Fast API 
+## Table of Contents
+- [Introduction](#introduction)
+- [Installation](#installation)
+- [Documentation](#documentation)
+- [Contact](#contact)
 
-Database : Remote Mongo DB Atlas
+## Introduction
+
+Learn more about the project [here](https://cmworks.onrender.com/).
 
 
 # Frontend Setup
 
   Component Based Approach 
+
   Color Theme
+
   Fundamental Filtering
 
 
@@ -24,6 +31,7 @@ Database : Remote Mongo DB Atlas
 
 
   /data/unique-values/
+
   /data/filter/
 
   Swagger 
