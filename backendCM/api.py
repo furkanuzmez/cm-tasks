@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Query
 from typing import Optional, Dict, List, Union
 from bson.objectid import ObjectId  # Use this if your MongoDB uses ObjectId
 from database import collection  # Import your MongoDB collection
+from fastapi import Request
 
 # Create a FastAPI router for handling data-related endpoints
 router = APIRouter()
@@ -73,37 +74,31 @@ def get_unique_values():
 # Endpoint to filter, sort, and paginate data
 @router.get("/data/filter/", summary="Filter, Sort, and Paginate Data", tags=["Data"])
 def filter_data(
-    column: Optional[str] = Query(None, description="Column to filter on"),
-    value: Optional[str] = Query(None, description="Exact value to match"),
-    min_value: Optional[float] = Query(None, description="Minimum value for range queries"),
-    max_value: Optional[float] = Query(None, description="Maximum value for range queries"),
-    contains: Optional[str] = Query(None, description="Text that the column value should contain"),
+    contains: Optional[str] = Query(None, description="Text to search across all columns"),
     sort_by: Optional[str] = Query(None, description="Column to sort by"),
     sort_order: Optional[str] = Query("asc", description="Sort order: 'asc' or 'desc'"),
     page: int = Query(1, description="Page number (starting from 1)"),
     page_size: int = Query(10, description="Number of records per page"),
+    request: Request = None,  # Capture the entire request for dynamic query handling
 ):
+    """
+    Filters: Passed as query parameters, e.g., /data/filter/?flowName=carbonone&country=Argentina
+    Contains: A string to search across all columns.
+    """
     query = {}
 
-    # Validate sort column
-    if sort_by:
-        validate_column(sort_by)
-
-    # Build the query for filtering
+    # Handle `contains` functionality
     if contains:
-        # If "contains" is provided, create regex-based filter for all fields
-        query = {"$or": [{field: {"$regex": contains, "$options": "i"}} for field in collection.find_one().keys() if field != "_id"]}
-    elif column:
-        validate_column(column)  # Ensure the column exists
-        if value:
-            query[column] = value  # Exact match filter
-        elif min_value is not None or max_value is not None:
-            range_query = {}
-            if min_value is not None:
-                range_query["$gte"] = min_value  # Minimum value
-            if max_value is not None:
-                range_query["$lte"] = max_value  # Maximum value
-            query[column] = range_query  # Range filter
+        # Create regex-based search across all valid columns
+        valid_columns = ["flowName", "processName", "country", "CAS"]  # Specify your valid columns
+        query["$or"] = [{col: {"$regex": contains, "$options": "i"}} for col in valid_columns]
+
+    # Extract additional filters dynamically from query parameters
+    for key, value in request.query_params.items():
+        if key in ["contains", "sort_by", "sort_order", "page", "page_size"]:
+            continue  # Skip special parameters
+        validate_column(key)  # Ensure the column exists
+        query[key] = value
 
     # Validate pagination parameters
     if page < 1 or page_size < 1:

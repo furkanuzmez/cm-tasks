@@ -39,6 +39,7 @@ const SearchPage = () => {
   const apiEndpoint = "https://cmworks.onrender.com/data/filter/";
   const uniqueValuesEndpoint = "https://cmworks.onrender.com/data/unique-values/";
 
+
   const fetchUniqueValues = async () => {
     try {
       const response = await fetch(uniqueValuesEndpoint);
@@ -48,6 +49,7 @@ const SearchPage = () => {
       }
       const result = await response.json();
       setUniqueFilters(result || {});
+      console.log(result);
     } catch (err) {
       setError(err.message);
     }
@@ -57,34 +59,45 @@ const SearchPage = () => {
     setLoading(true);
     setError(null);
     try {
+      // Construct query parameters
       const params = new URLSearchParams({
         page: currentPage,
         page_size: pageSize,
         ...(query && { contains: query }),
         ...Object.keys(filters).reduce((acc, key) => {
           if (filters[key]) {
-            acc["column"] = key;
-            acc["value"] = filters[key];
+            acc[key] = filters[key]; // Add each filter directly as a query parameter
           }
           return acc;
         }, {}),
       });
-
+  
       const response = await fetch(`${apiEndpoint}?${params.toString()}`);
       if (!response.ok) {
         const errorDetails = await response.json();
-        throw new Error(errorDetails.detail || "Failed to fetch data");
+  
+        // Extract error message safely
+        const errorMessage =
+          typeof errorDetails.detail === "string"
+            ? errorDetails.detail
+            : JSON.stringify(errorDetails.detail) || "Failed to fetch data";
+  
+        throw new Error(errorMessage);
       }
-
+  
       const result = await response.json();
       setData(result.data || []);
       setTotalPages(result.total_pages || 1);
     } catch (err) {
-      setError(err.message);
+      console.error("Error fetching data:", err); // Log the error for debugging
+      setError(err.message); // Set the error message
     } finally {
       setLoading(false);
     }
   };
+  
+  
+  
 
   useEffect(() => {
     fetchUniqueValues(); // Fetch unique values on component load
@@ -150,16 +163,13 @@ const SearchPage = () => {
               handleClearFilters={handleClearFilters}
             />
 
-            <Grid2
+            <Grid2 item  
+
+fullWidth   sx={{ bgcolor: "background.paper", borderRadius: 1, boxShadow: 1,maxWidth:"-webkit-fill-available",minWidth:'200px',width:'100%' }}
+              
               size={{ xs: 12, md: 6, sm: 12 }}
               alignItems="flex-start"
-              sx={{
-                minHeight: 400,
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-start",
-                minWidth: 330,
-              }}
+              
             >
               <PageSize pageSize={pageSize} setPageSize={setPageSize} />
               <DataCardList

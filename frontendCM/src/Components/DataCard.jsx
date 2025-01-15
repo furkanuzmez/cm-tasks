@@ -31,7 +31,7 @@ const DataCard = ({ item }) => {
           borderRadius: 3,
           mb: 3,
           width:'100%',
-          minWidth: 333,
+          minWidth: 320,
           transition: "transform 0.2s ease-in-out",
           bgcolor: "background.paper",
           "&:hover": {

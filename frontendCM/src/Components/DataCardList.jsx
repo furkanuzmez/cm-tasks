@@ -9,35 +9,39 @@ const DataCardList = ({ data, currentPage, totalPages, setCurrentPage }) => {
       spacing={2}
       justifyContent="flex-start"
       fullWidth
-      sx={{ bgcolor: "background.paper", borderRadius: 1, p: 2 }}
-      size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
+      sx={{ bgcolor: "background.paper", borderRadius: 1, p: 2,  width: "100%" }}
     >
       {data.length > 0 ? (
         <Grid2
           container
           spacing={2}
-          sx={{ maxHeight: "460px", overflowY: "scroll" }}
+          sx={{
+            maxHeight: "460px",
+            overflowY: "scroll",
+            
+            width: "100%",
+            minWidth: "330px", //
+          }}
         >
-          {" "}
           {data.map((item, index) => (
-            <Grid2 key={index} item size={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
+            <Grid2 key={index} item size={{ xs: 12, sm: 12, md: 12, lg: 12 }} sx={{ width: "98%" }}>
               <DataCard item={item} />
             </Grid2>
           ))}
         </Grid2>
       ) : (
-        <Grid2 item xs={12} sx={{ minWidth: 1200 }}>
+        <Grid2 item xs={12} sx={{ minWidth: 1200 }} size={{ xs: 12, sm: 12, md: 12, lg: 12 }}>
           <Typography align="left" color="text.secondary">
             No data available.
           </Typography>
         </Grid2>
       )}
 
-      {data.length > 0 ? (
+      {data.length > 0 && (
         <Grid2
           item
           size={{ xs: 12, sm: 12, md: 12, lg: 12 }}
-          sx={{ display: "flex", justifyContent: "center", mt: 2 }}
+          sx={{ display: "flex", justifyContent: "center", mt: 2, minWidth: "600px", width:'100%' }}
         >
           <Pagination
             count={totalPages}
@@ -46,15 +50,10 @@ const DataCardList = ({ data, currentPage, totalPages, setCurrentPage }) => {
             color="primary"
           />
         </Grid2>
-      ) : (
-        <Typography align="center" color="text.secondary"></Typography>
       )}
-
-      {/* Scrollable section for data list */}
-
-      {/* Pagination always visible */}
     </Grid2>
   );
 };
+
 
 export default DataCardList;

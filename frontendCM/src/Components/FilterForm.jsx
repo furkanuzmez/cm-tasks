@@ -58,7 +58,7 @@ const FiltersForm = ({
                 sx={{ bgcolor: "background.default", color: "text.primary" }}
               >
                 <MenuItem value="">All</MenuItem>
-                {uniqueFilters.flowName.map((value) => (
+                {uniqueFilters.flowName.sort((a, b) => a.localeCompare(b)).map((value) => (
                   <MenuItem key={value} value={value}>
                     {value}
                   </MenuItem>
@@ -80,7 +80,7 @@ const FiltersForm = ({
                 sx={{ bgcolor: "background.default", color: "text.primary" }}
               >
                 <MenuItem value="">All</MenuItem>
-                {uniqueFilters.processName.map((value) => (
+                {uniqueFilters.processName.sort((a, b) => a.localeCompare(b)).map((value) => (
                   <MenuItem key={value} value={value}>
                     {value}
                   </MenuItem>
@@ -102,7 +102,7 @@ const FiltersForm = ({
                 sx={{ bgcolor: "background.default", color: "text.primary" }}
               >
                 <MenuItem value="">All</MenuItem>
-                {uniqueFilters.country.map((value) => (
+                {uniqueFilters.country.sort((a, b) => a.localeCompare(b)).map((value) => (
                   <MenuItem key={value} value={value}>
                     {value}
                   </MenuItem>
@@ -122,7 +122,7 @@ const FiltersForm = ({
                 sx={{ bgcolor: "background.default", color: "text.primary" }}
               >
                 <MenuItem value="">All</MenuItem>
-                {uniqueFilters.CAS.map((value) => (
+                {uniqueFilters.CAS.sort((a, b) => a.localeCompare(b)).map((value) => (
                   <MenuItem key={value} value={value}>
                     {value}
                   </MenuItem>
