@@ -1,5 +1,7 @@
 # CM Tasks Project
 
+Learn more about the project and visit live page [https://cmworks.onrender.com/](https://cmworks.onrender.com/).
+
 This repository contains the **Frontend** and **Backend** components of the CM Tasks project, organized into separate folders:
 - `frontendCM`: Frontend built with React and Vite.
 - `backendCM`: Backend built with Python 3 and FastAPI.
