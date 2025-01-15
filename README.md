@@ -1,14 +1,18 @@
 # CM Tasks Project
 
-This repository contains both the **Frontend** and **Backend** components of the CM Tasks project. Follow the instructions below to set up each component.
+This repository contains the **Frontend** and **Backend** components of the CM Tasks project, organized into separate folders:
+- `frontendCM`: Frontend built with React and Vite.
+- `backendCM`: Backend built with Python 3 and FastAPI.
+
+Follow the instructions below to set up and run each component.
 
 ---
 
 ## **Frontend**: React with Vite
 
-The frontend is built using [React](https://reactjs.org/) and [Vite](https://vitejs.dev/).
+The frontend is located in the `frontendCM` folder and is built using [React](https://reactjs.org/) and [Vite](https://vitejs.dev/).
 
-### **Clone the Frontend**
+### **Clone the Repository and Navigate to the Frontend**
 ```bash
 # Clone the repository
 git clone https://github.com/furkanuzmez/cm-tasks.git
@@ -49,9 +53,9 @@ npm run preview
 
 ## **Backend**: Python with FastAPI
 
-The backend is built using [FastAPI](https://fastapi.tiangolo.com/) and runs on **Python 3**.
+The backend is located in the `backendCM` folder and is built using [FastAPI](https://fastapi.tiangolo.com/) and runs on **Python 3**.
 
-### **Clone the Backend**
+### **Clone the Repository and Navigate to the Backend**
 ```bash
 # Clone the repository
 git clone https://github.com/furkanuzmez/cm-tasks.git
@@ -88,6 +92,15 @@ cd cm-tasks/backendCM
 FastAPI automatically generates interactive API documentation:
 - **Swagger UI**: [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
+
+---
+
+## **Repository Structure**
+```
+cm-tasks/
+├── frontendCM/    # Frontend React + Vite application
+├── backendCM/     # Backend FastAPI application
+```
 
 ---
 
