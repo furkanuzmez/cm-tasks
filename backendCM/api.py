@@ -90,8 +90,27 @@ def filter_data(
     # Handle `contains` functionality
     if contains:
         # Create regex-based search across all valid columns
-        valid_columns = ["flowName", "processName", "country", "CAS"]  # Specify your valid columns
-        query["$or"] = [{col: {"$regex": contains, "$options": "i"}} for col in valid_columns]
+        
+        # valid_columns = ["flowName", "processName", "country", "CAS"] 
+        # query["$or"] = [{col: {"$regex": contains, "$options": "i"}} for col in valid_columns]
+
+
+        # All Columns
+        sample_doc = collection.find_one()
+        if sample_doc is None:
+          print("Sample document is None. The collection might be empty.")
+          all_columns = []  # No columns available
+        else:
+          all_columns = list(sample_doc.keys())  # Extract keys from the sample document
+          print("Available Columns:", all_columns)  # Print the columns to the console
+
+    # Check if `all_columns` is empty and handle it
+        if not all_columns:
+          print("No columns available for searching. The collection might be empty or misconfigured.")
+          raise HTTPException(status_code=400, detail="No columns available for searching.")
+
+    # Create regex-based search across all available columns
+        query["$or"] = [{col: {"$regex": contains, "$options": "i"}} for col in all_columns]
 
     # Extract additional filters dynamically from query parameters
     for key, value in request.query_params.items():

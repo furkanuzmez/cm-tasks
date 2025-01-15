@@ -36,7 +36,7 @@ const DataCardList = ({ data, currentPage, totalPages, setCurrentPage }) => {
           </Typography>
         </Grid2>
       )}
-
+      {/* Check style issue  */}
       {data.length > 0 && (
         <Grid2
           item
@@ -51,7 +51,7 @@ const DataCardList = ({ data, currentPage, totalPages, setCurrentPage }) => {
             sm: "left", // Slightly larger minWidth for tablets
             md: "center", // Default value for desktops
           }, }}
-        >
+        >  
           <Pagination
             count={totalPages}
             page={currentPage}

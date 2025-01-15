@@ -36,8 +36,10 @@ const SearchPage = () => {
     CAS: "",
   });
 
-  const apiEndpoint = "https://cmworks.onrender.com/data/filter/";
-  const uniqueValuesEndpoint = "https://cmworks.onrender.com/data/unique-values/";
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
+
+const apiEndpoint = `${apiBaseUrl}/data/filter/`;
+const uniqueValuesEndpoint = `${apiBaseUrl}/data/unique-values/`;
 
 
   const fetchUniqueValues = async () => {

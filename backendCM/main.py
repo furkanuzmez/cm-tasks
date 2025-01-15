@@ -10,6 +10,10 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
+
+logger = logging.getLogger("pymongo.topology")
+logger.disabled = True
+
 app = FastAPI()
 
 app.add_middleware(
