@@ -1,20 +1,21 @@
 
-# My Project
+# CM Task Solution
 
-Welcome to **My Project**! This is an example of a README file.
+Welcome to **CM TASK Solution**! .
 
 ## Table of Contents
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [Documentation](#documentation)
-- [Contact](#contact)
+- [CM Task Solution](#cm-task-solution)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Frontend Setup](#frontend-setup)
+  - [Backend Setup](#backend-setup)
 
 ## Introduction
 
-Learn more about the project [here](https://cmworks.onrender.com/).
+Go to live project on Render [here](https://cmworks.onrender.com/).
 
 
-# Frontend Setup
+## Frontend Setup
 
   Component Based Approach 
 
@@ -23,7 +24,7 @@ Learn more about the project [here](https://cmworks.onrender.com/).
   Fundamental Filtering
 
 
-# Backend Setup
+## Backend Setup
 
   Main.py
   Database.py
