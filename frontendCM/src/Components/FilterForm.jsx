@@ -7,8 +7,9 @@ import {
   Button,
   Grid2,
   Typography,
+  Autocomplete,
+  TextField,
 } from "@mui/material";
-
 
 const FiltersForm = ({
   filters,
@@ -18,7 +19,19 @@ const FiltersForm = ({
 }) => {
   return (
     <>
-      <Grid2 item  fullWidth  size={{xs:12,md:3,sm:12}} sx={{ bgcolor: "background.paper", borderRadius: 1, boxShadow: 1,maxWidth:"-webkit-fill-available",minWidth:'200px',width:'100%' }}>
+      <Grid2
+        item
+        fullWidth
+        size={{ xs: 12, md: 3, sm: 12 }}
+        sx={{
+          bgcolor: "background.paper",
+          borderRadius: 1,
+          boxShadow: 1,
+          maxWidth: "-webkit-fill-available",
+          minWidth: "200px",
+          width: "100%",
+        }}
+      >
         <Typography
           variant="h6"
           sx={{
@@ -26,7 +39,8 @@ const FiltersForm = ({
             mt: 1,
             ml: 2,
             color: "text.primary",
-            fontWeight: "bold",maxWidth:"-webkit-fill-available"
+            fontWeight: "bold",
+            maxWidth: "-webkit-fill-available",
           }}
         >
           Filter
@@ -39,16 +53,36 @@ const FiltersForm = ({
           fullWidth
           sx={{
             marginBottom: 2,
-           
+
             bgcolor: "background.paper",
             borderRadius: 1,
             p: 2,
           }}
         >
           {/* Flow Name Filter */}
-          <Grid2 item xs={12} sx={{maxWidth:"-webkit-fill-available"}}>
+          <Grid2 item xs={12} sx={{ maxWidth: "-webkit-fill-available" }}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>Flow Name</InputLabel>
+              <Autocomplete
+                onChange={(e, v) => {
+                  console.log(v);
+                  setFilters({ ...filters, flowName: v });
+                }}
+                value={filters.flowName}
+                disablePortal
+                options={uniqueFilters.flowName.sort((a, b) =>
+                  a.localeCompare(b)
+                )}
+                sx={{ bgcolor: "background.default", color: "text.primary" }}
+                renderInput={(params) => (
+                  <TextField
+                    onChange={(e) => console.log(e.target.value)}
+                    {...params}
+                    label="Flow Name"
+                  />
+                )}
+              />
+              {/* <InputLabel>Flow Name</InputLabel>
+
               <Select
                 value={filters.flowName}
                 onChange={(e) =>
@@ -63,14 +97,34 @@ const FiltersForm = ({
                     {value}
                   </MenuItem>
                 ))}
-              </Select>
+              </Select> */}
             </FormControl>
           </Grid2>
 
           {/* Process Name Filter */}
-          <Grid2 item xs={12} sx={{maxWidth:"-webkit-fill-available"}}>
+          <Grid2 item xs={12} sx={{ maxWidth: "-webkit-fill-available" }}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>Process Name</InputLabel>
+              <Autocomplete
+                onChange={(e, v) => {
+                  console.log(v);
+                  setFilters({ ...filters, processName: v });
+                }}
+                value={filters.processName}
+                disablePortal
+                options={uniqueFilters.processName.sort((a, b) =>
+                  a.localeCompare(b)
+                )}
+                sx={{ bgcolor: "background.default", color: "text.primary" }}
+                renderInput={(params) => (
+                  <TextField
+                    onChange={(e) => console.log(e.target.value)}
+                    {...params}
+                    label="Process Name"
+                  />
+                )}
+              />
+
+              {/* <InputLabel>Process Name</InputLabel>
               <Select
                 value={filters.processName}
                 onChange={(e) =>
@@ -80,19 +134,37 @@ const FiltersForm = ({
                 sx={{ bgcolor: "background.default", color: "text.primary" }}
               >
                 <MenuItem value="">All</MenuItem>
-                {uniqueFilters.processName.sort((a, b) => a.localeCompare(b)).map((value) => (
-                  <MenuItem key={value} value={value}>
-                    {value}
-                  </MenuItem>
-                ))}
-              </Select>
+                {uniqueFilters.processName
+                  .sort((a, b) => a.localeCompare(b))
+                  .map((value) => (
+                    <MenuItem key={value} value={value}>
+                      {value}
+                    </MenuItem>
+                  ))}
+              </Select> */}
             </FormControl>
           </Grid2>
 
           {/* Country Filter */}
-          <Grid2 item xs={12} sx={{maxWidth:"-webkit-fill-available"}}>
+          <Grid2 item xs={12} sx={{ maxWidth: "-webkit-fill-available" }}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>Country</InputLabel>
+              <Autocomplete
+                onChange={(e, v) => {
+                  console.log(v);
+                  setFilters({ ...filters, country: v });
+                }}
+                value={filters.country}
+                disablePortal={true}
+                options={uniqueFilters.country.sort((a, b) =>
+                  a.localeCompare(b)
+                )}
+                sx={{ bgcolor: "background.default", color: "text.primary" }}
+                renderInput={(params) => (
+                  <TextField {...params} label="Country" />
+                )}
+              />
+
+              {/* <InputLabel>Country</InputLabel>
               <Select
                 value={filters.country}
                 onChange={(e) =>
@@ -107,32 +179,52 @@ const FiltersForm = ({
                     {value}
                   </MenuItem>
                 ))}
-              </Select>
+              </Select> */}
             </FormControl>
           </Grid2>
 
           {/* CAS Number Filter */}
-          <Grid2 item xs={12} sx={{maxWidth:"-webkit-fill-available"}}>
+          <Grid2 item xs={12} sx={{ maxWidth: "-webkit-fill-available" }}>
             <FormControl fullWidth variant="outlined">
-              <InputLabel>CAS Number</InputLabel>
+              <Autocomplete
+                onChange={(e, v) => {
+                  console.log(v);
+                  setFilters({ ...filters, CAS: v });
+                }}
+                value={filters.CAS}
+                disablePortal
+                options={uniqueFilters.CAS.sort((a, b) => a.localeCompare(b))}
+                sx={{ bgcolor: "background.default", color: "text.primary" }}
+                renderInput={(params) => (
+                  <TextField
+                    onChange={(e) => console.log(e.target.value)}
+                    {...params}
+                    label="CAS Number"
+                  />
+                )}
+              />
+              {/* <InputLabel>CAS Number</InputLabel>
               <Select
                 value={filters.CAS}
-                onChange={(e) => setFilters({ ...filters, CAS: e.target.value })}
+                onChange={(e) =>
+                  setFilters({ ...filters, CAS: e.target.value })
+                }
                 label="CAS Number"
                 sx={{ bgcolor: "background.default", color: "text.primary" }}
               >
                 <MenuItem value="">All</MenuItem>
-                {uniqueFilters.CAS.sort((a, b) => a.localeCompare(b)).map((value) => (
-                  <MenuItem key={value} value={value}>
-                    {value}
-                  </MenuItem>
-                ))}
-              </Select>
+                {uniqueFilters.CAS.sort((a, b) => a.localeCompare(b)).map(
+                  (value) => (
+                    <MenuItem key={value} value={value}>
+                      {value}
+                    </MenuItem>
+                  )
+                )}
+              </Select> */}
             </FormControl>
           </Grid2>
 
           {/* Page Size */}
-         
 
           {/* Clear Filters Button */}
           <Grid2 item xs={12}>

@@ -23,7 +23,7 @@ def paginate_results(cursor, query, page: int, page_size: int):
         "page": page,
         "page_size": page_size,
         "total_records": total_count,
-        "total_pages": (total_count + page_size - 1) // page_size,  # Calculate total pages
+        "total_pages": (total_count + page_size - 1) // page_size,  # Calculate total pages with // floor division
         "data": results,
     }
 

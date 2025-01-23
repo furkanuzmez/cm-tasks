@@ -73,7 +73,7 @@ const uniqueValuesEndpoint = `${apiBaseUrl}/data/unique-values/`;
           return acc;
         }, {}),
       });
-  
+      console.log(params.toString());
       const response = await fetch(`${apiEndpoint}?${params.toString()}`);
       if (!response.ok) {
         const errorDetails = await response.json();
